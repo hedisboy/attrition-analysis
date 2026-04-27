@@ -39,5 +39,5 @@ def satisfaction_summary(df: pd.DataFrame) -> pd.DataFrame:
         .agg(total_employees=("employee_id", "count"), leavers=("attrition", lambda s: (s == "Yes").sum()))
         .reset_index()
     )
-    grouped["attrition_rate"] = round((grouped["leavers"] / (df["attrition"] == "Yes").sum()) * 100, 2)
+    grouped["attrition_rate"] = round((grouped["leavers"] / grouped["total_employees"]) * 100, 2)
     return grouped.sort_values("job_satisfaction")
